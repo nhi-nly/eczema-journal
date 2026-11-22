@@ -1,43 +1,28 @@
-const CACHE_VERSION = 'eczema-journal-cache-v1';
+const CACHE_VERSION = 'eczema-journal-cache-v5';
 
-const STATIC_ASSETS = [
+const CORE_ASSETS = [
   './',
   './index.html',
   './styles.css',
   './app.js',
-  './manifest.json',
+  './manifest.json'
+];
+
+const OPTIONAL_ASSETS = [
   './icons/icon-192.png',
   './icons/icon-512.png',
   './icons/apple-touch-icon.png',
   './icons/icon-192.svg',
-  './icons/icon-512.svg',
-  './assets/calendar.svg',
-  './assets/camera-food.svg',
-  './assets/camera-selfie.svg',
-  './assets/check-clothes.svg',
-  './assets/check-food.svg',
-  './assets/check-med.svg',
-  './assets/check-sleep-12.svg',
-  './assets/check-sleep-14.svg',
-  './assets/chevron-clothes.svg',
-  './assets/chevron-food.svg',
-  './assets/chevron-med.svg',
-  './assets/chevron-others.svg',
-  './assets/chevron-skin.svg',
-  './assets/chevron-sleep.svg',
-  './assets/chevron-symptoms.svg',
-  './assets/mood-others.svg',
-  './assets/next-day.svg',
-  './assets/plus-others.svg',
-  './assets/plus-symptoms.svg',
-  './assets/prev-day.svg',
-  './assets/radio-food.svg'
+  './icons/icon-512.svg'
 ];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_VERSION).then((cache) => {
-      return cache.addAll(STATIC_ASSETS);
+    caches.open(CACHE_VERSION).then(async (cache) => {
+      await cache.addAll(CORE_ASSETS);
+      await Promise.allSettled(
+        OPTIONAL_ASSETS.map((url) => cache.add(url))
+      );
     }).then(() => self.skipWaiting())
   );
 });
@@ -57,31 +42,32 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
 
+  // Network-first with cache fallback: ensures GitHub Pages updates load immediately when online,
+  // while still working 100% offline from cache when in airplane mode or without reception.
   event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      if (cachedResponse) {
-        return cachedResponse;
-      }
-
-      return fetch(event.request)
-        .then((networkResponse) => {
-          if (
-            networkResponse &&
-            (networkResponse.status === 200 || networkResponse.type === 'opaque')
-          ) {
-            const responseClone = networkResponse.clone();
-            caches.open(CACHE_VERSION).then((cache) => {
-              cache.put(event.request, responseClone);
-            });
+    fetch(event.request)
+      .then((networkResponse) => {
+        if (
+          networkResponse &&
+          (networkResponse.status === 200 || networkResponse.type === 'opaque')
+        ) {
+          const responseClone = networkResponse.clone();
+          caches.open(CACHE_VERSION).then((cache) => {
+            cache.put(event.request, responseClone);
+          });
+        }
+        return networkResponse;
+      })
+      .catch(() => {
+        return caches.match(event.request).then((cachedResponse) => {
+          if (cachedResponse) {
+            return cachedResponse;
           }
-          return networkResponse;
-        })
-        .catch(() => {
           if (event.request.mode === 'navigate') {
             return caches.match('./index.html');
           }
           return new Response('', { status: 503, statusText: 'Offline' });
         });
-    })
+      })
   );
 });

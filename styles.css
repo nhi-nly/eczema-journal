@@ -7,8 +7,10 @@
 }
 
 html, body {
-  min-height: 100%;
-  background-color: #1f2421;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background-color: #f5f8f6;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -17,23 +19,24 @@ html, body {
 
 body {
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  flex-direction: column;
+  align-items: stretch;
 }
 
 .is-hidden {
   display: none !important;
 }
 
-/* Main Phone Frame Container (390px) */
+/* Main Phone Frame Container (Full width & height responsive) */
 .phone-frame {
-  width: 390px;
+  width: 100%;
   min-height: 100vh;
+  min-height: 100dvh;
   background-color: #f5f8f6;
   position: relative;
   display: flex;
   flex-direction: column;
-  box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25);
+  flex: 1;
 }
 
 /* Header - TopBar */
@@ -41,7 +44,7 @@ body {
   position: sticky;
   top: 0;
   z-index: 30;
-  width: 390px;
+  width: 100%;
   background: rgba(245, 248, 246, 0.95);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -321,7 +324,7 @@ body {
 
 /* Scrollable Content */
 .scrollable-content {
-  width: 390px;
+  width: 100%;
   padding: 12px 12px 16px 12px;
   display: flex;
   flex-direction: column;
@@ -331,7 +334,7 @@ body {
 
 /* Section Card */
 .section-card {
-  width: 366px;
+  width: 100%;
   background-color: #ffffff;
   border: 1px solid #dce8e2;
   border-radius: 16px;
@@ -912,13 +915,7 @@ select.text-input-box {
   border: 2px solid #ffffff;
   flex-shrink: 0;
   position: relative;
-  background: conic-gradient(
-    from 0deg,
-    rgb(72, 187, 120) 0% 35%,
-    rgb(237, 137, 54) 35% 55%,
-    rgb(236, 201, 75) 55% 75%,
-    rgb(237, 100, 166) 75% 100%
-  );
+  background: #e2ede8;
   box-shadow: inset 0px 2px 4px 2px rgba(0, 0, 0, 0.05);
 }
 
@@ -1123,11 +1120,11 @@ select.text-input-box {
 
 .chip-zone {
   min-height: 44px;
-  padding: 8px 12px;
+  padding: 8px 14px;
   border-radius: 9999px;
-  border: 1px solid #dce8e2;
-  background-color: #ffffff;
-  color: #688276;
+  border: none;
+  background-color: #e1efe8;
+  color: #264337;
   font-family: 'Inter', sans-serif;
   font-size: 11px;
   font-weight: 400;
@@ -1136,18 +1133,17 @@ select.text-input-box {
   align-items: center;
   cursor: pointer;
   white-space: nowrap;
+  transition: all 0.15s ease;
 }
 
 .chip-zone.active {
-  padding: 8px 12px;
   background-color: #386652;
-  border-color: #386652;
   color: #ffffff;
 }
 
 .chip-zone-add {
   min-height: 44px;
-  padding: 8px 12px;
+  padding: 8px 14px;
   border-radius: 9999px;
   border: 1px dashed #6fa994;
   background-color: transparent;
@@ -1158,8 +1154,54 @@ select.text-input-box {
   line-height: 16px;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   cursor: pointer;
   white-space: nowrap;
+}
+
+/* Suggested Chips inside Fast-Add Box when all chips are removed */
+.chip-suggestions-box {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 2px;
+}
+
+.chip-suggestions-label {
+  color: #688276;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 14px;
+}
+
+.chip-suggestions-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.chip-suggestion-pill {
+  min-height: 36px;
+  padding: 6px 12px;
+  border-radius: 9999px;
+  border: 1px dashed #9bc8b6;
+  background-color: #ffffff;
+  color: #2d5343;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 15px;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.chip-suggestion-pill:hover {
+  background-color: #e1efe8;
+  border-color: #386652;
 }
 
 /* Chip Remove Button (x) */
@@ -1628,13 +1670,14 @@ select.text-input-box {
   position: sticky;
   bottom: 0;
   z-index: 30;
-  width: 390px;
-  height: 73px;
+  width: 100%;
+  height: auto;
+  min-height: 73px;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-top: 1px solid #dce8e2;
-  padding: 13px 16px 12px 16px;
+  padding: 13px 16px calc(12px + env(safe-area-inset-bottom, 0px)) 16px;
   box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1), 0px 4px 6px -4px rgba(0, 0, 0, 0.1);
 }
 
@@ -1706,7 +1749,8 @@ select.text-input-box {
 }
 
 .selfie-modal {
-  width: 358px;
+  width: 100%;
+  max-width: 400px;
   background: #ffffff;
   border-radius: 16px;
   border: 1px solid #dce8e2;
@@ -1729,7 +1773,16 @@ select.text-input-box {
   gap: 8px;
   overflow: hidden;
   color: #386652;
+  font-family: 'Inter', sans-serif;
   font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.selfie-preview-box:hover {
+  background-color: #e1efe8;
+  border-color: #386652;
 }
 
 .selfie-preview-box img {
@@ -1948,11 +2001,10 @@ select.text-input-box {
 .start-screen-overlay,
 .loading-screen-overlay {
   position: fixed;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 390px;
+  inset: 0;
+  width: 100%;
   height: 100vh;
+  height: 100dvh;
   background: linear-gradient(180deg, #eef6f1 0%, #f5f8f6 55%, #e4f1ea 100%);
   z-index: 250;
   display: flex;
@@ -1964,6 +2016,7 @@ select.text-input-box {
 .start-screen-card,
 .loading-card {
   width: 100%;
+  max-width: 420px;
   background-color: #ffffff;
   border: 1px solid #dce8e2;
   border-radius: 20px;
@@ -2243,15 +2296,50 @@ select.text-input-box {
   border-color: #386652;
 }
 
+/* Hidden date input inside Calendar Open Button */
+.calendar-open-btn {
+  position: relative;
+}
+
+.sr-only-date-input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  border: none;
+}
+
+/* Delete Icon Button on Custom Blocks (Others & Custom Symptoms) */
+.block-delete-btn {
+  width: 36px;
+  height: 36px;
+  margin-right: -4px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: #688276;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.block-delete-btn:hover {
+  background-color: rgba(220, 38, 38, 0.12);
+  color: #dc2626;
+}
+
+.photo-tag-badge.tag-drinks {
+  background-color: rgba(217, 119, 6, 0.9);
+}
+
 /* PWA Safe Area Insets & Responsive Mobile Layout down to 320px */
 .header-topbar {
   padding-top: calc(12px + env(safe-area-inset-top, 0px));
-}
-
-.footer-sticky {
-  height: auto;
-  min-height: 73px;
-  padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
 }
 
 .start-screen-overlay,
@@ -2260,30 +2348,7 @@ select.text-input-box {
   padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px));
 }
 
-@media (max-width: 390px) {
-  body {
-    background-color: #f5f8f6;
-  }
-
-  .phone-frame,
-  .header-topbar,
-  .scrollable-content,
-  .footer-sticky,
-  .start-screen-overlay,
-  .loading-screen-overlay {
-    width: 100%;
-    max-width: 390px;
-  }
-
-  .section-card {
-    width: 100%;
-  }
-
-  .selfie-modal {
-    width: 100%;
-    max-width: 358px;
-  }
-
+@media (max-width: 380px) {
   .nutrition-card {
     flex-direction: column;
     align-items: stretch;

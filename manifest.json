@@ -10,6 +10,12 @@
   "theme_color": "#386652",
   "icons": [
     {
+      "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><rect width='512' height='512' rx='112' fill='%23386652'/><circle cx='256' cy='256' r='168' fill='%23e1efe8' opacity='0.16'/><path d='M256 112 C182 180, 150 256, 150 314 C150 374, 198 410, 256 410 C314 410, 362 374, 362 314 C362 256, 330 180, 256 112 Z' fill='%23e1efe8'/><path d='M256 156 L256 368' stroke='%23386652' stroke-width='14' stroke-linecap='round'/><path d='M256 246 L310 202' stroke='%23386652' stroke-width='12' stroke-linecap='round'/><path d='M256 298 L202 254' stroke='%23386652' stroke-width='12' stroke-linecap='round'/></svg>",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
       "src": "icons/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
@@ -20,18 +26,6 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
-    },
-    {
-      "src": "icons/icon-192.svg",
-      "sizes": "192x192",
-      "type": "image/svg+xml",
-      "purpose": "any"
-    },
-    {
-      "src": "icons/icon-512.svg",
-      "sizes": "512x512",
-      "type": "image/svg+xml",
-      "purpose": "any"
     }
   ]
 }

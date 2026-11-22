@@ -17,8 +17,8 @@
 </head>
 <body data-node-id="257:6182">
   <main class="phone-frame" data-node-id="257:6183" data-name="Main - Phone Frame Container">
-    <!-- Start Screen Overlay (Name Input) -->
-    <div class="start-screen-overlay" id="startScreenOverlay" role="dialog" aria-labelledby="startScreenTitle">
+    <!-- Start Screen Overlay (Only shown if user hasn't entered name yet, or when editing name) -->
+    <div class="start-screen-overlay is-hidden" id="startScreenOverlay" role="dialog" aria-labelledby="startScreenTitle">
       <div class="start-screen-card">
         <div class="start-brand-badge">🌿</div>
         <h1 class="start-title" id="startScreenTitle">Eczema Journal</h1>
@@ -29,9 +29,9 @@
           <input
             type="text"
             id="userNameInput"
-            class="text-input-box start-name-input"
-            placeholder="Enter your name (e.g., Nhi)"
-            value="Nhi"
+            class="text-input-box start-name-input placeholder-style"
+            placeholder="e.g., Nhi"
+            value=""
             autocomplete="given-name"
             required
           />
@@ -49,9 +49,7 @@
           <!-- Animation 1: Single Skin Shred Getting Smaller and Disappearing -->
           <div class="loading-anim-scene" id="loadingAnim1">
             <svg class="shred-svg" viewBox="0 0 220 150" width="220" height="150" aria-hidden="true">
-              <!-- Calm skin barrier base line -->
               <path class="skin-base-line" d="M 25 122 Q 110 118 195 122" fill="none" stroke="#9bc8b6" stroke-width="3" stroke-linecap="round" />
-              <!-- Single curled skin shred that shrinks smaller and disappears -->
               <g class="single-skin-shred">
                 <path
                   d="M 56 86 C 72 58, 108 52, 136 66 C 154 75, 168 64, 162 84 C 155 104, 118 108, 88 100 C 68 95, 48 98, 56 86 Z"
@@ -80,21 +78,16 @@
           <!-- Animation 2: Pile of Skin Shreds Getting Shorter and Disappearing -->
           <div class="loading-anim-scene is-hidden" id="loadingAnim2">
             <svg class="shred-svg" viewBox="0 0 220 150" width="220" height="150" aria-hidden="true">
-              <!-- Calm skin barrier base line -->
               <path class="skin-base-line" d="M 25 122 Q 110 122 195 122" fill="none" stroke="#9bc8b6" stroke-width="3" stroke-linecap="round" />
-              <!-- Pile of skin shreds getting shorter towards base y=122 and disappearing -->
               <g class="pile-skin-shreds">
-                <!-- Bottom layer of shreds -->
                 <g class="pile-layer pile-layer-bottom">
                   <path d="M 42 120 C 56 102, 92 100, 118 108 C 144 100, 168 104, 178 120 Z" fill="#ebd9c8" stroke="#cdb49c" stroke-width="1.8" />
                   <path d="M 58 118 C 84 106, 134 106, 162 118 Z" fill="#f5e9dc" stroke="#d6bfa9" stroke-width="1.5" />
                 </g>
-                <!-- Middle layer of shreds -->
                 <g class="pile-layer pile-layer-middle">
                   <path d="M 58 108 C 74 88, 108 86, 132 96 C 148 90, 160 96, 164 108 Z" fill="#f3e5d8" stroke="#d2b8a0" stroke-width="1.8" />
                   <path d="M 72 104 C 92 90, 124 90, 146 104 Z" fill="#faefe4" stroke="#dcc7b3" stroke-width="1.4" />
                 </g>
-                <!-- Top peak layer of shreds -->
                 <g class="pile-layer pile-layer-top">
                   <path d="M 78 92 C 92 72, 122 72, 140 90 C 124 96, 94 96, 78 92 Z" fill="#f7ebe0" stroke="#d6bfa9" stroke-width="1.8" />
                   <path d="M 92 82 C 104 68, 118 68, 128 80 C 116 85, 102 85, 92 82 Z" fill="#fdf6ef" stroke="#DFCBB8" stroke-width="1.5" />
@@ -110,78 +103,85 @@
     <header class="header-topbar" data-node-id="257:6184" data-name="Header - TopBar">
       <!-- Status & Profile Row -->
       <div class="status-profile-row" data-node-id="257:6185" data-name="Status & Profile Row">
-        <button type="button" class="profile-group profile-group-btn" id="profileGroupBtn" title="Tap to edit name or replay loading animation" data-node-id="257:6186">
+        <button type="button" class="profile-group profile-group-btn" id="profileGroupBtn" title="Tap to edit your name" data-node-id="257:6186">
           <div class="avatar-badge" data-node-id="257:6187">
-            <span id="avatarInitials" data-node-id="257:6188">HN</span>
+            <span id="avatarInitials" data-node-id="257:6188">EJ</span>
           </div>
-          <div class="greeting-text" id="greetingText" data-node-id="257:6193">Hi, Nhi 👋</div>
+          <div class="greeting-text" id="greetingText" data-node-id="257:6193">Hi 👋</div>
         </button>
       </div>
 
       <!-- Date Switcher Navigation -->
       <div class="date-switcher-nav" data-node-id="257:6199" data-name="Date Switcher Navigation">
         <button type="button" class="nav-icon-btn" id="btnPrevDay" aria-label="Previous day" data-node-id="257:6200">
-          <img src="assets/prev-day.svg" alt="" data-node-id="257:6201" />
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M10 12.6667L5.33333 8L10 3.33333" stroke="#2D5343" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
         </button>
         <div class="date-title-group" data-node-id="257:6203">
-          <span class="date-title-text" id="currentDateLabel" data-node-id="257:6205">Today • Sat, 26 Sep 2026</span>
-          <button type="button" class="calendar-open-btn" id="btnOpenCalendar" aria-label="Open Calendar" data-node-id="257:6206">
-            <img src="assets/calendar.svg" alt="" data-node-id="257:6207" />
-          </button>
+          <span class="date-title-text" id="currentDateLabel" data-node-id="257:6205">Today</span>
+          <label class="calendar-open-btn" id="btnOpenCalendar" title="Pick a date" aria-label="Open Calendar" data-node-id="257:6206">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M5.33333 4.66667V2M10.6667 4.66667V2M4.66667 7.33333H11.3333M3.33333 14H12.6667C13.4026 14 14 13.4026 14 12.6667V4.66667C14 3.93078 13.4026 3.33333 12.6667 3.33333H3.33333C2.59745 3.33333 2 3.93078 2 4.66667V12.6667C2 13.4026 2.59745 14 3.33333 14Z" stroke="#386652" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <input type="date" id="calendarDateInput" class="sr-only-date-input" aria-label="Select date to view or log" />
+          </label>
         </div>
         <button type="button" class="nav-icon-btn" id="btnNextDay" aria-label="Next day" data-node-id="257:6209">
-          <img src="assets/next-day.svg" alt="" data-node-id="257:6210" />
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M6 3.33333L10.6667 8L6 12.6667" stroke="#2D5343" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
         </button>
       </div>
 
       <!-- Horizontal Swipeable Week Strip -->
       <div class="week-strip" id="weekStrip" data-node-id="257:6212" data-name="Horizontal Swipeable Week Strip">
-        <button type="button" class="day-pill" data-day="23" data-label="Wed, 23 Sep 2026" data-node-id="257:6213">
-          <span class="day-name" data-node-id="257:6215">WED</span>
-          <span class="day-num" data-node-id="257:6217">23</span>
+        <button type="button" class="day-pill" data-node-id="257:6213">
+          <span class="day-name">---</span>
+          <span class="day-num">--</span>
         </button>
-        <button type="button" class="day-pill" data-day="24" data-label="Thu, 24 Sep 2026" data-node-id="257:6218">
-          <span class="day-name" data-node-id="257:6220">THU</span>
-          <span class="day-num" data-node-id="257:6222">24</span>
+        <button type="button" class="day-pill" data-node-id="257:6218">
+          <span class="day-name">---</span>
+          <span class="day-num">--</span>
         </button>
-        <button type="button" class="day-pill" data-day="25" data-label="Fri, 25 Sep 2026" data-node-id="257:6223">
-          <span class="day-name" data-node-id="257:6225">FRI</span>
-          <span class="day-num" data-node-id="257:6227">25</span>
+        <button type="button" class="day-pill" data-node-id="257:6223">
+          <span class="day-name">---</span>
+          <span class="day-num">--</span>
         </button>
-        <button type="button" class="day-pill active" data-day="26" data-label="Today • Sat, 26 Sep 2026" data-node-id="257:6228">
-          <span class="day-name" data-node-id="257:6231">TODAY</span>
-          <span class="day-num" data-node-id="257:6233">26</span>
+        <button type="button" class="day-pill" data-node-id="257:6228">
+          <span class="day-name">---</span>
+          <span class="day-num">--</span>
         </button>
-        <button type="button" class="day-pill future" data-day="27" data-label="Sun, 27 Sep 2026" data-node-id="257:6234">
-          <span class="day-name" data-node-id="257:6236">SUN</span>
-          <span class="day-num" data-node-id="257:6238">27</span>
+        <button type="button" class="day-pill" data-node-id="257:6234">
+          <span class="day-name">---</span>
+          <span class="day-num">--</span>
         </button>
-        <button type="button" class="day-pill future" data-day="28" data-label="Mon, 28 Sep 2026" data-node-id="257:6239">
-          <span class="day-name" data-node-id="257:6241">MON</span>
-          <span class="day-num" data-node-id="257:6243">28</span>
+        <button type="button" class="day-pill" data-node-id="257:6239">
+          <span class="day-name">---</span>
+          <span class="day-num">--</span>
         </button>
       </div>
 
-      <!-- Quick Mood / Skin Feeling Selector -->
+      <!-- Quick Mood / Skin Feeling Selector (No pre-selected option) -->
       <div class="mood-selector-section" data-node-id="257:6244" data-name="Quick Mood / Skin Feeling Selector">
         <div class="mood-prompt" data-node-id="257:6246">How is your skin feeling today?</div>
         <div class="mood-row" id="moodRow" data-node-id="257:6247">
-          <button type="button" class="mood-btn opacity-60" data-mood="crying" data-node-id="257:6248">
+          <button type="button" class="mood-btn opacity-70" data-mood="crying" data-node-id="257:6248">
             <span data-node-id="257:6249">😭</span>
           </button>
-          <button type="button" class="mood-btn opacity-60" data-mood="struggling" data-node-id="257:6250">
+          <button type="button" class="mood-btn opacity-70" data-mood="struggling" data-node-id="257:6250">
             <span data-node-id="257:6251">😣</span>
           </button>
           <button type="button" class="mood-btn opacity-70" data-mood="neutral" data-node-id="257:6252">
             <span data-node-id="257:6253">😐</span>
           </button>
-          <button type="button" class="mood-btn active" data-mood="relieved" data-node-id="257:6254">
+          <button type="button" class="mood-btn opacity-70" data-mood="relieved" data-node-id="257:6254">
             <span data-node-id="257:6256">😌</span>
           </button>
           <button type="button" class="mood-btn opacity-70" data-mood="good" data-node-id="257:6257">
             <span data-node-id="257:6258">🙂</span>
           </button>
-          <button type="button" class="mood-btn opacity-60" data-mood="glowing" data-node-id="257:6259">
+          <button type="button" class="mood-btn opacity-70" data-mood="glowing" data-node-id="257:6259">
             <span data-node-id="257:6260">✨</span>
           </button>
         </div>
@@ -204,7 +204,9 @@
             </div>
           </div>
           <div class="accordion-chevron" data-node-id="257:6271">
-            <img src="assets/chevron-food.svg" alt="" />
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M3.33333 10L8 5.33333L12.6667 10" stroke="#386652" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
           </div>
         </button>
 
@@ -216,71 +218,148 @@
             </div>
             <div class="slider-labels-row" data-node-id="257:6927">
               <span class="slider-label-muted" data-node-id="257:6929">Liquid paste</span>
-              <span class="slider-value-bold" id="eatingHabitsValue" data-node-id="257:6931">Mostly chunks</span>
+              <span class="slider-value-bold" id="eatingHabitsValue" data-node-id="257:6931">Not set</span>
             </div>
-            <div class="slider-track" data-slider="eatingHabits" data-min="0" data-max="100" data-value="65" data-node-id="257:6932">
-              <div class="slider-thumb" style="left: 205.8px;" data-node-id="257:6935"></div>
+            <div class="slider-track" data-slider="eatingHabits" data-min="0" data-max="100" data-value="0" data-node-id="257:6932">
+              <div class="slider-thumb" style="left: 0px;" data-node-id="257:6935"></div>
             </div>
-            <div class="checkbox-row-multitask" data-toggle-check="true" data-check-icon="assets/check-food.svg" data-node-id="257:6936">
-              <div class="custom-checkbox checked" data-node-id="257:6937">
-                <img src="assets/check-food.svg" alt="" data-node-id="257:6938" />
-              </div>
+            <div class="checkbox-row-multitask" id="checkMultitaskEating" data-toggle-check="true" data-node-id="257:6936">
+              <div class="custom-checkbox size-14" data-node-id="257:6937"></div>
               <span class="checkbox-label-text" data-node-id="257:6941">Multitask while eating</span>
             </div>
           </div>
 
-          <!-- Meals Logged -->
+          <!-- Meals Logged (Every meal & drink has its own input box + photo button) -->
           <div class="subsection subsection-divider" data-node-id="257:6888">
             <div class="row-between" data-node-id="257:6889">
               <span class="label-bold-12" data-node-id="257:6891">Meals Logged</span>
               <span class="hint-10" data-node-id="257:6893">Takes notes / photo</span>
             </div>
-            <div class="subsection" data-node-id="257:6894">
-              <!-- Breakfast active item -->
-              <div class="meal-active-card" data-node-id="257:6895">
+            <div class="subsection" id="mealsLoggedList" data-node-id="257:6894">
+              <!-- Breakfast -->
+              <div class="meal-active-card" data-meal-card="Breakfast" data-node-id="257:6895">
                 <div class="meal-active-header" data-node-id="257:6896">
-                  <div class="meal-check-label" data-toggle-check="true" data-check-icon="assets/check-food.svg" data-node-id="257:6897">
-                    <div class="custom-checkbox checked" data-node-id="257:6898">
-                      <img src="assets/check-food.svg" alt="" data-node-id="257:6899" />
-                    </div>
+                  <div class="meal-check-label" id="checkMealBreakfast" data-toggle-check="true" data-node-id="257:6897">
+                    <div class="custom-checkbox size-14" data-node-id="257:6898"></div>
                     <span class="meal-active-title" data-node-id="257:6902">Breakfast</span>
                   </div>
-                  <button type="button" class="camera-icon-btn" id="btnMealPhoto" aria-label="Add meal photo" data-node-id="257:6903">
-                    <img src="assets/camera-food.svg" alt="" data-node-id="257:6904" />
+                  <button type="button" class="camera-icon-btn" data-meal-photo-tag="Breakfast" aria-label="Add Breakfast photo" data-node-id="257:6903">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path d="M2 6C2 5.26411 2.59745 4.66667 3.33333 4.66667H3.95333C4.39904 4.66673 4.8153 4.44409 5.06267 4.07333L5.604 3.26C5.85137 2.88924 6.26763 2.6666 6.71333 2.66667H9.28667C9.73237 2.6666 10.1486 2.88924 10.396 3.26L10.9373 4.07333C11.1847 4.44409 11.601 4.66673 12.0467 4.66667H12.6667C13.4026 4.66667 14 5.26411 14 6V12C14 12.7359 13.4026 13.3333 12.6667 13.3333H3.33333C2.59745 13.3333 2 12.7359 2 12V6Z" stroke="#386652" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round" />
+                      <path d="M10 8.66667C10 9.7705 9.10383 10.6667 8 10.6667C6.89617 10.6667 6 9.7705 6 8.66667C6 7.56284 6.89617 6.66667 8 6.66667C9.10383 6.66667 10 7.56284 10 8.66667Z" stroke="#386652" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
                   </button>
                 </div>
                 <input
                   type="text"
-                  class="text-input-box"
-                  value="Rolled oats, almond milk, blueberries, raw honey"
+                  id="mealNoteBreakfast"
+                  class="text-input-box placeholder-style"
+                  value=""
+                  placeholder="e.g., Rolled oats, almond milk, blueberries, raw honey"
                   aria-label="Breakfast notes"
                   data-node-id="257:6907"
                 />
               </div>
 
-              <!-- Other Meals 2x2 Grid -->
-              <div class="grid-2col" data-node-id="257:6910">
-                <div class="grid-check-card" data-toggle-check="true" data-check-icon="assets/check-food.svg" data-node-id="257:6911">
-                  <div class="custom-checkbox size-14" data-node-id="257:6912"></div>
-                  <span class="grid-check-text" data-node-id="257:6914">Lunch</span>
+              <!-- Lunch -->
+              <div class="meal-active-card" data-meal-card="Lunch">
+                <div class="meal-active-header">
+                  <div class="meal-check-label" id="checkMealLunch" data-toggle-check="true" data-node-id="257:6911">
+                    <div class="custom-checkbox size-14" data-node-id="257:6912"></div>
+                    <span class="meal-active-title" data-node-id="257:6914">Lunch</span>
+                  </div>
+                  <button type="button" class="camera-icon-btn" data-meal-photo-tag="Lunch" aria-label="Add Lunch photo">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path d="M2 6C2 5.26411 2.59745 4.66667 3.33333 4.66667H3.95333C4.39904 4.66673 4.8153 4.44409 5.06267 4.07333L5.604 3.26C5.85137 2.88924 6.26763 2.6666 6.71333 2.66667H9.28667C9.73237 2.6666 10.1486 2.88924 10.396 3.26L10.9373 4.07333C11.1847 4.44409 11.601 4.66673 12.0467 4.66667H12.6667C13.4026 4.66667 14 5.26411 14 6V12C14 12.7359 13.4026 13.3333 12.6667 13.3333H3.33333C2.59745 13.3333 2 12.7359 2 12V6Z" stroke="#386652" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round" />
+                      <path d="M10 8.66667C10 9.7705 9.10383 10.6667 8 10.6667C6.89617 10.6667 6 9.7705 6 8.66667C6 7.56284 6.89617 6.66667 8 6.66667C9.10383 6.66667 10 7.56284 10 8.66667Z" stroke="#386652" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </button>
                 </div>
-                <div class="grid-check-card" data-toggle-check="true" data-check-icon="assets/check-food.svg" data-node-id="257:6915">
-                  <div class="custom-checkbox size-14" data-node-id="257:6916"></div>
-                  <span class="grid-check-text" data-node-id="257:6918">Dinner</span>
+                <input
+                  type="text"
+                  id="mealNoteLunch"
+                  class="text-input-box placeholder-style"
+                  value=""
+                  placeholder="e.g., Steamed greens, quinoa, wild salmon"
+                  aria-label="Lunch notes"
+                />
+              </div>
+
+              <!-- Dinner -->
+              <div class="meal-active-card" data-meal-card="Dinner">
+                <div class="meal-active-header">
+                  <div class="meal-check-label" id="checkMealDinner" data-toggle-check="true" data-node-id="257:6915">
+                    <div class="custom-checkbox size-14" data-node-id="257:6916"></div>
+                    <span class="meal-active-title" data-node-id="257:6918">Dinner</span>
+                  </div>
+                  <button type="button" class="camera-icon-btn" data-meal-photo-tag="Dinner" aria-label="Add Dinner photo">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path d="M2 6C2 5.26411 2.59745 4.66667 3.33333 4.66667H3.95333C4.39904 4.66673 4.8153 4.44409 5.06267 4.07333L5.604 3.26C5.85137 2.88924 6.26763 2.6666 6.71333 2.66667H9.28667C9.73237 2.6666 10.1486 2.88924 10.396 3.26L10.9373 4.07333C11.1847 4.44409 11.601 4.66673 12.0467 4.66667H12.6667C13.4026 4.66667 14 5.26411 14 6V12C14 12.7359 13.4026 13.3333 12.6667 13.3333H3.33333C2.59745 13.3333 2 12.7359 2 12V6Z" stroke="#386652" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round" />
+                      <path d="M10 8.66667C10 9.7705 9.10383 10.6667 8 10.6667C6.89617 10.6667 6 9.7705 6 8.66667C6 7.56284 6.89617 6.66667 8 6.66667C9.10383 6.66667 10 7.56284 10 8.66667Z" stroke="#386652" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </button>
                 </div>
-                <div class="grid-check-card" data-toggle-check="true" data-check-icon="assets/check-food.svg" data-node-id="257:6919">
-                  <div class="custom-checkbox size-14" data-node-id="257:6920"></div>
-                  <span class="grid-check-text" data-node-id="257:6922">Snacks</span>
+                <input
+                  type="text"
+                  id="mealNoteDinner"
+                  class="text-input-box placeholder-style"
+                  value=""
+                  placeholder="e.g., Bone broth soup, sweet potato, chicken"
+                  aria-label="Dinner notes"
+                />
+              </div>
+
+              <!-- Snacks -->
+              <div class="meal-active-card" data-meal-card="Snacks">
+                <div class="meal-active-header">
+                  <div class="meal-check-label" id="checkMealSnacks" data-toggle-check="true" data-node-id="257:6919">
+                    <div class="custom-checkbox size-14" data-node-id="257:6920"></div>
+                    <span class="meal-active-title" data-node-id="257:6922">Snacks</span>
+                  </div>
+                  <button type="button" class="camera-icon-btn" data-meal-photo-tag="Snacks" aria-label="Add Snacks photo">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path d="M2 6C2 5.26411 2.59745 4.66667 3.33333 4.66667H3.95333C4.39904 4.66673 4.8153 4.44409 5.06267 4.07333L5.604 3.26C5.85137 2.88924 6.26763 2.6666 6.71333 2.66667H9.28667C9.73237 2.6666 10.1486 2.88924 10.396 3.26L10.9373 4.07333C11.1847 4.44409 11.601 4.66673 12.0467 4.66667H12.6667C13.4026 4.66667 14 5.26411 14 6V12C14 12.7359 13.4026 13.3333 12.6667 13.3333H3.33333C2.59745 13.3333 2 12.7359 2 12V6Z" stroke="#386652" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round" />
+                      <path d="M10 8.66667C10 9.7705 9.10383 10.6667 8 10.6667C6.89617 10.6667 6 9.7705 6 8.66667C6 7.56284 6.89617 6.66667 8 6.66667C9.10383 6.66667 10 7.56284 10 8.66667Z" stroke="#386652" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </button>
                 </div>
-                <div class="grid-check-card" data-toggle-check="true" data-check-icon="assets/check-food.svg" data-node-id="257:6923">
-                  <div class="custom-checkbox size-14" data-node-id="257:6924"></div>
-                  <span class="grid-check-text" data-node-id="257:6926">Drinks / Herbal tea</span>
+                <input
+                  type="text"
+                  id="mealNoteSnacks"
+                  class="text-input-box placeholder-style"
+                  value=""
+                  placeholder="e.g., Pumpkin seeds, green apple, rice cakes"
+                  aria-label="Snacks notes"
+                />
+              </div>
+
+              <!-- Drinks / Herbal tea -->
+              <div class="meal-active-card" data-meal-card="Drinks">
+                <div class="meal-active-header">
+                  <div class="meal-check-label" id="checkMealDrinks" data-toggle-check="true" data-node-id="257:6923">
+                    <div class="custom-checkbox size-14" data-node-id="257:6924"></div>
+                    <span class="meal-active-title" data-node-id="257:6926">Drinks / Herbal tea</span>
+                  </div>
+                  <button type="button" class="camera-icon-btn" data-meal-photo-tag="Drinks" aria-label="Add Drinks photo">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path d="M2 6C2 5.26411 2.59745 4.66667 3.33333 4.66667H3.95333C4.39904 4.66673 4.8153 4.44409 5.06267 4.07333L5.604 3.26C5.85137 2.88924 6.26763 2.6666 6.71333 2.66667H9.28667C9.73237 2.6666 10.1486 2.88924 10.396 3.26L10.9373 4.07333C11.1847 4.44409 11.601 4.66673 12.0467 4.66667H12.6667C13.4026 4.66667 14 5.26411 14 6V12C14 12.7359 13.4026 13.3333 12.6667 13.3333H3.33333C2.59745 13.3333 2 12.7359 2 12V6Z" stroke="#386652" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round" />
+                      <path d="M10 8.66667C10 9.7705 9.10383 10.6667 8 10.6667C6.89617 10.6667 6 9.7705 6 8.66667C6 7.56284 6.89617 6.66667 8 6.66667C9.10383 6.66667 10 7.56284 10 8.66667Z" stroke="#386652" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </button>
                 </div>
+                <input
+                  type="text"
+                  id="mealNoteDrinks"
+                  class="text-input-box placeholder-style"
+                  value=""
+                  placeholder="e.g., Chamomile tea, warm lemon water"
+                  aria-label="Drinks / Herbal tea notes"
+                />
               </div>
             </div>
           </div>
 
-          <!-- Water Intake Radio -->
+          <!-- Water Intake Radio (< 2 Liters, 2 Liters, > 2 Liters) -->
           <div class="subsection gap-6 subsection-divider-9" data-node-id="257:6331">
             <div class="label-inline-group" data-node-id="257:6332">
               <span class="label-bold-12" data-node-id="257:6333">Water Intake</span>
@@ -291,30 +370,27 @@
                 <div class="radio-circle-wrap" data-node-id="257:6337">
                   <div class="radio-unselected" data-node-id="257:6338"></div>
                 </div>
-                <span class="water-radio-text" data-node-id="257:6340">&lt; Normal</span>
+                <span class="water-radio-text" data-node-id="257:6340">&lt; 2 Liters</span>
               </div>
-              <div class="water-radio-card active" data-water="normal" data-node-id="257:6341">
+              <div class="water-radio-card" data-water="normal" data-node-id="257:6341">
                 <div class="radio-circle-wrap" data-node-id="257:6342">
-                  <div class="radio-selected" data-node-id="257:6343">
-                    <img src="assets/radio-food.svg" alt="" data-node-id="257:6344" />
-                  </div>
+                  <div class="radio-unselected" data-node-id="257:6343"></div>
                 </div>
-                <span class="water-radio-text" data-node-id="257:6347">Normal (2L)</span>
+                <span class="water-radio-text" data-node-id="257:6347">2 Liters</span>
               </div>
               <div class="water-radio-card" data-water="high" data-node-id="257:6348">
                 <div class="radio-circle-wrap" data-node-id="257:6349">
                   <div class="radio-unselected" data-node-id="257:6350"></div>
                 </div>
-                <span class="water-radio-text" data-node-id="257:6352">&gt; 2.5 Liters</span>
+                <span class="water-radio-text" data-node-id="257:6352">&gt; 2 Liters</span>
               </div>
             </div>
           </div>
 
-          <!-- Nutrition Portion & Ingredients Slider (Editable) -->
+          <!-- Nutrition Portion & Ingredients Slider (Editable, starts at 0% / un-prefilled) -->
           <div class="subsection subsection-divider-9" data-node-id="257:6353">
             <div class="row-between" data-node-id="257:6354">
               <span class="label-bold-12" data-node-id="257:6356">Nutrition Portion Breakdown</span>
-              <span class="hint-green-10" id="nutritionBalanceHint" data-node-id="257:6358">Balanced Anti-Inflammatory</span>
             </div>
             <div class="nutrition-card" data-node-id="257:6359">
               <div class="nutrition-pie" id="nutritionPie" data-node-id="257:6360"></div>
@@ -325,9 +401,9 @@
                     <span class="legend-name" data-node-id="257:6365">Greens / Veggies</span>
                   </div>
                   <div class="legend-edit-controls">
-                    <input type="range" class="nutrition-range-input" min="0" max="100" value="35" aria-label="Greens / Veggies percentage slider" />
+                    <input type="range" class="nutrition-range-input" min="0" max="100" value="0" aria-label="Greens / Veggies percentage slider" />
                     <div class="nutrition-pct-input-wrap">
-                      <input type="number" class="nutrition-pct-input" min="0" max="100" value="35" aria-label="Greens / Veggies percentage" data-node-id="257:6367" />
+                      <input type="number" class="nutrition-pct-input" min="0" max="100" value="" placeholder="35" aria-label="Greens / Veggies percentage" data-node-id="257:6367" />
                       <span class="nutrition-pct-symbol">%</span>
                     </div>
                   </div>
@@ -338,9 +414,9 @@
                     <span class="legend-name" data-node-id="257:6371">Healthy Fats / Seeds</span>
                   </div>
                   <div class="legend-edit-controls">
-                    <input type="range" class="nutrition-range-input" min="0" max="100" value="20" aria-label="Healthy Fats / Seeds percentage slider" />
+                    <input type="range" class="nutrition-range-input" min="0" max="100" value="0" aria-label="Healthy Fats / Seeds percentage slider" />
                     <div class="nutrition-pct-input-wrap">
-                      <input type="number" class="nutrition-pct-input" min="0" max="100" value="20" aria-label="Healthy Fats / Seeds percentage" data-node-id="257:6373" />
+                      <input type="number" class="nutrition-pct-input" min="0" max="100" value="" placeholder="20" aria-label="Healthy Fats / Seeds percentage" data-node-id="257:6373" />
                       <span class="nutrition-pct-symbol">%</span>
                     </div>
                   </div>
@@ -351,9 +427,9 @@
                     <span class="legend-name" data-node-id="257:6377">Whole Grains</span>
                   </div>
                   <div class="legend-edit-controls">
-                    <input type="range" class="nutrition-range-input" min="0" max="100" value="20" aria-label="Whole Grains percentage slider" />
+                    <input type="range" class="nutrition-range-input" min="0" max="100" value="0" aria-label="Whole Grains percentage slider" />
                     <div class="nutrition-pct-input-wrap">
-                      <input type="number" class="nutrition-pct-input" min="0" max="100" value="20" aria-label="Whole Grains percentage" data-node-id="257:6379" />
+                      <input type="number" class="nutrition-pct-input" min="0" max="100" value="" placeholder="20" aria-label="Whole Grains percentage" data-node-id="257:6379" />
                       <span class="nutrition-pct-symbol">%</span>
                     </div>
                   </div>
@@ -364,9 +440,9 @@
                     <span class="legend-name" data-node-id="257:6383">Clean Protein</span>
                   </div>
                   <div class="legend-edit-controls">
-                    <input type="range" class="nutrition-range-input" min="0" max="100" value="25" aria-label="Clean Protein percentage slider" />
+                    <input type="range" class="nutrition-range-input" min="0" max="100" value="0" aria-label="Clean Protein percentage slider" />
                     <div class="nutrition-pct-input-wrap">
-                      <input type="number" class="nutrition-pct-input" min="0" max="100" value="25" aria-label="Clean Protein percentage" data-node-id="257:6385" />
+                      <input type="number" class="nutrition-pct-input" min="0" max="100" value="" placeholder="25" aria-label="Clean Protein percentage" data-node-id="257:6385" />
                       <span class="nutrition-pct-symbol">%</span>
                     </div>
                   </div>
@@ -377,10 +453,10 @@
             <div class="natural-slider-wrap" data-node-id="257:6386">
               <div class="slider-labels-row no-pb" data-node-id="257:6387">
                 <span class="slider-label-dark" data-node-id="257:6389">Natural / Unprocessed Ingredients</span>
-                <span class="slider-value-bold" id="naturalIngredientsValue" data-node-id="257:6391">85%</span>
+                <span class="slider-value-bold" id="naturalIngredientsValue" data-node-id="257:6391">0%</span>
               </div>
-              <div class="slider-track" data-slider="naturalIngredients" data-min="0" data-max="100" data-value="85" data-node-id="257:6392">
-                <div class="slider-thumb" style="left: 268.59px;" data-node-id="257:6395"></div>
+              <div class="slider-track" data-slider="naturalIngredients" data-min="0" data-max="100" data-value="0" data-node-id="257:6392">
+                <div class="slider-thumb" style="left: 0px;" data-node-id="257:6395"></div>
               </div>
             </div>
           </div>
@@ -396,93 +472,32 @@
             </div>
             <div class="header-titles" data-node-id="257:6417">
               <h2 class="header-title" data-node-id="257:6419">Med &amp; Supplements</h2>
-              <p class="header-subtitle" id="medProtocolsCount" data-node-id="257:6420">3 active protocols taken today</p>
+              <p class="header-subtitle" id="medProtocolsCount" data-node-id="257:6420">0 active protocols taken today</p>
             </div>
           </div>
           <div class="accordion-chevron" data-node-id="257:6421">
-            <img src="assets/chevron-med.svg" alt="" />
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M3.33333 10L8 5.33333L12.6667 10" stroke="#386652" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
           </div>
         </button>
 
         <div class="accordion-body gap-14" data-node-id="257:6423">
-          <!-- Common Supplements -->
+          <!-- Common Supplements (Unselected by default) -->
           <div class="subsection gap-6" data-node-id="257:6424">
             <span class="label-bold-11-track" data-node-id="257:6426">Common Supplements</span>
             <div class="chips-wrap" id="supplementsChipsWrap" data-node-id="257:6427">
-              <button type="button" class="chip-lg active" data-chip-toggle="prefix" data-label="Omega 3 (1000 IU)" data-node-id="257:6432">✓ Omega 3 (1000 IU)</button>
-              <button type="button" class="chip-lg active" data-chip-toggle="prefix" data-label="Vitamin D (4000 IU)" data-node-id="257:6428">✓ Vitamin D (4000 IU)</button>
+              <button type="button" class="chip-lg" data-chip-toggle="prefix" data-label="Omega 3 (1000 IU)" data-node-id="257:6432">+ Omega 3 (1000 IU)</button>
+              <button type="button" class="chip-lg" data-chip-toggle="prefix" data-label="Vitamin D (4000 IU)" data-node-id="257:6428">+ Vitamin D (4000 IU)</button>
               <button type="button" class="chip-lg" data-chip-toggle="prefix" data-label="Vitamin B3" data-node-id="257:6434">+ Vitamin B3</button>
-              <button type="button" class="chip-lg active" data-chip-toggle="prefix" data-label="Zinc (45 mg)" data-node-id="257:6430">✓ Zinc (45 mg)</button>
+              <button type="button" class="chip-lg" data-chip-toggle="prefix" data-label="Zinc (45 mg)" data-node-id="257:6430">+ Zinc (45 mg)</button>
               <button type="button" class="chip-lg" data-chip-toggle="prefix" data-label="Quercetin" data-node-id="257:6436">+ Quercetin</button>
               <button type="button" class="chip-lg-add" data-open-add="addMedCard" data-focus-target="medNameInput" data-node-id="257:6438">+ Add</button>
             </div>
           </div>
 
-          <!-- Dosage Timing Table -->
-          <div class="subsection subsection-divider-med" id="dosageTimingTable" data-node-id="257:6440">
-            <!-- Vitamin D3 -->
-            <div class="timing-row-card" data-node-id="257:6441">
-              <span class="timing-med-name" data-node-id="257:6443">Vitamin D3</span>
-              <div class="timing-checks-group" data-node-id="257:6444">
-                <div class="timing-check-item checked-gap is-checked" data-toggle-check="true" data-check-icon="assets/check-med.svg" data-node-id="257:6445">
-                  <div class="custom-checkbox checked" data-node-id="257:6446">
-                    <img src="assets/check-med.svg" alt="" data-node-id="257:6447" />
-                  </div>
-                  <span class="timing-check-text" data-node-id="257:6450">Morning</span>
-                </div>
-                <div class="timing-check-item" data-toggle-check="true" data-check-icon="assets/check-med.svg" data-node-id="257:6451">
-                  <div class="custom-checkbox size-14" data-node-id="257:6452"></div>
-                  <span class="timing-check-text" data-node-id="257:6454">Noon</span>
-                </div>
-                <div class="timing-check-item" data-toggle-check="true" data-check-icon="assets/check-med.svg" data-node-id="257:6455">
-                  <div class="custom-checkbox size-14" data-node-id="257:6456"></div>
-                  <span class="timing-check-text" data-node-id="257:6458">Night</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Zinc Picolinate -->
-            <div class="timing-row-card" data-node-id="257:6459">
-              <span class="timing-med-name" data-node-id="257:6461">Zinc Picolinate</span>
-              <div class="timing-checks-group" data-node-id="257:6462">
-                <div class="timing-check-item" data-toggle-check="true" data-check-icon="assets/check-med.svg" data-node-id="257:6463">
-                  <div class="custom-checkbox size-14" data-node-id="257:6464"></div>
-                  <span class="timing-check-text" data-node-id="257:6466">Morning</span>
-                </div>
-                <div class="timing-check-item" data-toggle-check="true" data-check-icon="assets/check-med.svg" data-node-id="257:6467">
-                  <div class="custom-checkbox size-14" data-node-id="257:6468"></div>
-                  <span class="timing-check-text" data-node-id="257:6470">Noon</span>
-                </div>
-                <div class="timing-check-item checked-gap is-checked" data-toggle-check="true" data-check-icon="assets/check-med.svg" data-node-id="257:6471">
-                  <div class="custom-checkbox checked" data-node-id="257:6472">
-                    <img src="assets/check-med.svg" alt="" data-node-id="257:6473" />
-                  </div>
-                  <span class="timing-check-text" data-node-id="257:6476">Night</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Omega-3 EPA/DHA -->
-            <div class="timing-row-card" data-node-id="257:6477">
-              <span class="timing-med-name" data-node-id="257:6479">Omega-3 EPA/DHA</span>
-              <div class="timing-checks-group" data-node-id="257:6480">
-                <div class="timing-check-item checked-gap is-checked" data-toggle-check="true" data-check-icon="assets/check-med.svg" data-node-id="257:6481">
-                  <div class="custom-checkbox checked" data-node-id="257:6482">
-                    <img src="assets/check-med.svg" alt="" data-node-id="257:6483" />
-                  </div>
-                  <span class="timing-check-text" data-node-id="257:6486">Morning</span>
-                </div>
-                <div class="timing-check-item" data-toggle-check="true" data-check-icon="assets/check-med.svg" data-node-id="257:6487">
-                  <div class="custom-checkbox size-14" data-node-id="257:6488"></div>
-                  <span class="timing-check-text" data-node-id="257:6490">Noon</span>
-                </div>
-                <div class="timing-check-item" data-toggle-check="true" data-check-icon="assets/check-med.svg" data-node-id="257:6491">
-                  <div class="custom-checkbox size-14" data-node-id="257:6492"></div>
-                  <span class="timing-check-text" data-node-id="257:6494">Night</span>
-                </div>
-              </div>
-            </div>
-          </div>
+          <!-- Dosage Timing Table (Dynamically populated from selected supplement chips) -->
+          <div class="subsection subsection-divider-med is-hidden" id="dosageTimingTable" data-node-id="257:6440"></div>
 
           <!-- Add Specific Medication (Hidden by default) -->
           <div class="fast-add-card is-hidden" id="addMedCard" data-node-id="257:6984">
@@ -531,7 +546,9 @@
             </div>
           </div>
           <div class="accordion-chevron" data-node-id="257:6513">
-            <img src="assets/chevron-skin.svg" alt="" />
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M3.33333 10L8 5.33333L12.6667 10" stroke="#386652" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
           </div>
         </button>
 
@@ -542,8 +559,8 @@
               <span class="label-bold-12" data-node-id="257:6519">Moisturizer / Emollient</span>
             </div>
             <div class="chips-wrap" id="moisturizerChipsWrap" data-node-id="257:6522">
-              <button type="button" class="chip-sm active" data-chip-toggle="prefix" data-label="Cetaphil Restoraderm" data-node-id="257:6523">✓ Cetaphil Restoraderm</button>
-              <button type="button" class="chip-sm active" data-chip-toggle="prefix" data-label="Cerave Healing Ointment" data-node-id="257:6525">✓ Cerave Healing Ointment</button>
+              <button type="button" class="chip-sm" data-chip-toggle="prefix" data-label="Cetaphil Restoraderm" data-node-id="257:6523">+ Cetaphil Restoraderm</button>
+              <button type="button" class="chip-sm" data-chip-toggle="prefix" data-label="Cerave Healing Ointment" data-node-id="257:6525">+ Cerave Healing Ointment</button>
               <button type="button" class="chip-sm-add" data-open-add="addTopicalCard" data-category="Moisturizer / Emollient" data-focus-target="topicalNameInput" data-node-id="257:6527">+ Add</button>
             </div>
           </div>
@@ -554,7 +571,7 @@
               <span class="label-bold-12" data-node-id="257:6532">Body Bath / Cleanser</span>
             </div>
             <div class="chips-wrap" id="cleanserChipsWrap" data-node-id="257:6533">
-              <button type="button" class="chip-sm active" data-chip-toggle="prefix" data-label="Gentle Soap-Free Cleanser" data-node-id="257:6534">✓ Gentle Soap-Free Cleanser</button>
+              <button type="button" class="chip-sm" data-chip-toggle="prefix" data-label="Gentle Soap-Free Cleanser" data-node-id="257:6534">+ Gentle Soap-Free Cleanser</button>
               <button type="button" class="chip-sm" data-chip-toggle="prefix" data-label="Colloidal Oatmeal Soak" data-node-id="257:6536">+ Colloidal Oatmeal Soak</button>
               <button type="button" class="chip-sm-add" data-open-add="addTopicalCard" data-category="Body Bath / Cleanser" data-focus-target="topicalNameInput" data-node-id="263:7132">+ Add</button>
             </div>
@@ -566,8 +583,8 @@
               <span class="label-bold-12" data-node-id="257:6541">Anti-bacterial and Compresses</span>
             </div>
             <div class="chips-wrap" id="compressChipsWrap" data-node-id="257:6544">
-              <button type="button" class="chip-sm active" data-chip-toggle="prefix" data-label="Saline sterile compress" data-node-id="257:6545">✓ Saline sterile compress</button>
-              <button type="button" class="chip-sm active" data-chip-toggle="prefix" data-label="Dilute Methylene Blue" data-node-id="257:6547">✓ Dilute Methylene Blue</button>
+              <button type="button" class="chip-sm" data-chip-toggle="prefix" data-label="Saline sterile compress" data-node-id="257:6545">+ Saline sterile compress</button>
+              <button type="button" class="chip-sm" data-chip-toggle="prefix" data-label="Dilute Methylene Blue" data-node-id="257:6547">+ Dilute Methylene Blue</button>
               <button type="button" class="chip-sm-add" data-open-add="addTopicalCard" data-category="Anti-bacterial and Compresses" data-focus-target="topicalNameInput" data-node-id="257:6549">+ Add</button>
             </div>
           </div>
@@ -614,12 +631,14 @@
             </div>
           </div>
           <div class="accordion-chevron" data-node-id="257:6571">
-            <img src="assets/chevron-sleep.svg" alt="" />
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M3.33333 10L8 5.33333L12.6667 10" stroke="#386652" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
           </div>
         </button>
 
         <div class="accordion-body gap-14" data-node-id="257:6573">
-          <!-- Sleep Quality (Editable Bed time and Wake up time) -->
+          <!-- Sleep Quality (Editable Bed time and Wake up time, un-prefilled) -->
           <div class="subsection gap-6" data-node-id="257:6574">
             <div class="row-between" data-node-id="257:6575">
               <span class="label-bold-12" data-node-id="257:6577">Sleep Quality</span>
@@ -629,29 +648,29 @@
               <label class="sleep-time-card" data-node-id="257:6581">
                 <span class="sleep-time-label" data-node-id="257:6583">Bed time</span>
                 <div class="sleep-time-value-row" data-node-id="257:6584">
-                  <input type="time" class="sleep-time-input" id="bedTimeInput" value="22:30" aria-label="Bed time" data-node-id="257:6586" />
+                  <input type="time" class="sleep-time-input" id="bedTimeInput" value="" placeholder="22:30" aria-label="Bed time" data-node-id="257:6586" />
                 </div>
               </label>
               <label class="sleep-time-card" data-node-id="257:6594">
                 <span class="sleep-time-label" data-node-id="257:6596">Wake up time</span>
                 <div class="sleep-time-value-row" data-node-id="257:6597">
-                  <input type="time" class="sleep-time-input" id="wakeTimeInput" value="06:45" aria-label="Wake up time" data-node-id="257:6599" />
+                  <input type="time" class="sleep-time-input" id="wakeTimeInput" value="" placeholder="06:45" aria-label="Wake up time" data-node-id="257:6599" />
                 </div>
               </label>
             </div>
 
-            <!-- Toss and turn night awakenings -->
+            <!-- Toss and turn night awakenings (Unchecked by default, placeholder text) -->
             <div class="toss-turn-card" data-node-id="257:6607">
-              <div class="meal-check-label" data-toggle-check="true" data-check-icon="assets/check-sleep-14.svg" data-node-id="257:6608">
-                <div class="custom-checkbox checked" data-node-id="257:6609">
-                  <img src="assets/check-sleep-14.svg" alt="" data-node-id="257:6610" />
-                </div>
+              <div class="meal-check-label" id="checkNightItch" data-toggle-check="true" data-node-id="257:6608">
+                <div class="custom-checkbox size-14" data-node-id="257:6609"></div>
                 <span class="checkbox-label-text" style="margin-left: 0; color: #20372e;" data-node-id="257:6613">Toss and turn / Night itch scratching</span>
               </div>
               <input
                 type="text"
-                class="text-input-box compact"
-                value="Woke up 2x around 3 AM due to itchy inner elbows"
+                id="nightItchNoteInput"
+                class="text-input-box compact placeholder-style"
+                value=""
+                placeholder="e.g., Woke up 2x around 3 AM due to itchy inner elbows"
                 aria-label="Night itch note"
                 data-node-id="257:6614"
               />
@@ -667,10 +686,10 @@
               <div class="subsection gap-6" data-node-id="257:6622">
                 <div class="slider-labels-row" data-node-id="257:6623">
                   <span class="slider-label-muted" data-node-id="257:6625">Exercise intensity</span>
-                  <span class="slider-value-bold" id="exerciseIntensityValue" data-node-id="257:6627">Gentle (Light sweat)</span>
+                  <span class="slider-value-bold" id="exerciseIntensityValue" data-node-id="257:6627">Not set</span>
                 </div>
-                <div class="slider-track" data-slider="exerciseIntensity" data-min="0" data-max="100" data-value="30" data-node-id="257:6628">
-                  <div class="slider-thumb" style="left: 94.8px;" data-node-id="257:6631"></div>
+                <div class="slider-track" data-slider="exerciseIntensity" data-min="0" data-max="100" data-value="0" data-node-id="257:6628">
+                  <div class="slider-thumb" style="left: 0px;" data-node-id="257:6631"></div>
                 </div>
                 <div class="slider-sublabels-row" data-node-id="257:6632">
                   <span class="slider-sublabel" data-node-id="257:6634">Light</span>
@@ -679,8 +698,8 @@
               </div>
 
               <div class="chips-wrap" id="exerciseChipsWrap" style="padding-top: 4px;" data-node-id="257:6637">
-                <button type="button" class="chip-sm active" data-chip-toggle="prefix" data-label="Yoga" data-node-id="257:6638">✓ Yoga</button>
-                <button type="button" class="chip-sm active" data-chip-toggle="prefix" data-label="Meditation" data-node-id="257:6640">✓ Meditation</button>
+                <button type="button" class="chip-sm" data-chip-toggle="prefix" data-label="Yoga" data-node-id="257:6638">+ Yoga</button>
+                <button type="button" class="chip-sm" data-chip-toggle="prefix" data-label="Meditation" data-node-id="257:6640">+ Meditation</button>
                 <button type="button" class="chip-sm" data-chip-toggle="prefix" data-label="Walking" data-node-id="257:6642">+ Walking</button>
                 <button type="button" class="chip-sm" data-chip-toggle="prefix" data-label="Weight lifting" data-node-id="257:6644">+ Weight lifting</button>
                 <button type="button" class="chip-sm-add" id="btnAddExercise" data-open-add="addExerciseCard" data-focus-target="exerciseNameInput" data-node-id="263:7123">+ Add</button>
@@ -703,23 +722,21 @@
             </div>
           </div>
 
-          <!-- Bath & Bowel Movement Timing -->
+          <!-- Bath & Bowel Movement Timing (Unchecked by default) -->
           <div class="subsection subsection-divider-9" data-node-id="257:6646">
             <div class="inline-timing-row" data-node-id="257:6647">
               <span class="inline-timing-label" data-node-id="257:6649">Bath Timing</span>
               <div class="timing-checks-group" data-node-id="257:6650">
-                <div class="timing-check-item is-checked" data-toggle-check="true" data-check-size="12" data-check-icon="assets/check-sleep-12.svg" data-node-id="257:6651">
+                <div class="timing-check-item" id="checkBathMorning" data-toggle-check="true" data-check-size="12" data-node-id="257:6651">
                   <div class="custom-checkbox size-12" data-node-id="257:6652"></div>
                   <span class="timing-check-text" data-node-id="257:6653">Morning</span>
                 </div>
-                <div class="timing-check-item is-checked" data-toggle-check="true" data-check-size="12" data-check-icon="assets/check-sleep-12.svg" data-node-id="257:6654">
+                <div class="timing-check-item" id="checkBathAfternoon" data-toggle-check="true" data-check-size="12" data-node-id="257:6654">
                   <div class="custom-checkbox size-12" data-node-id="257:6655"></div>
                   <span class="timing-check-text" data-node-id="257:6656">Afternoon</span>
                 </div>
-                <div class="timing-check-item checked-gap is-checked" data-toggle-check="true" data-check-size="12" data-check-icon="assets/check-sleep-12.svg" data-node-id="257:6657">
-                  <div class="custom-checkbox checked-14" data-node-id="257:6658">
-                    <img src="assets/check-sleep-12.svg" alt="" data-node-id="257:6659" />
-                  </div>
+                <div class="timing-check-item" id="checkBathEvening" data-toggle-check="true" data-check-size="12" data-node-id="257:6657">
+                  <div class="custom-checkbox size-12" data-node-id="257:6658"></div>
                   <span class="timing-check-text" data-node-id="257:6661">Evening</span>
                 </div>
               </div>
@@ -728,17 +745,15 @@
             <div class="inline-timing-row" data-node-id="257:6662">
               <span class="inline-timing-label" data-node-id="257:6664">Bowel Movement</span>
               <div class="timing-checks-group" data-node-id="257:6665">
-                <div class="timing-check-item checked-gap is-checked" data-toggle-check="true" data-check-size="12" data-check-icon="assets/check-sleep-12.svg" data-node-id="257:6666">
-                  <div class="custom-checkbox checked-14" data-node-id="257:6667">
-                    <img src="assets/check-sleep-12.svg" alt="" data-node-id="257:6668" />
-                  </div>
+                <div class="timing-check-item" id="checkBowelMorning" data-toggle-check="true" data-check-size="12" data-node-id="257:6666">
+                  <div class="custom-checkbox size-12" data-node-id="257:6667"></div>
                   <span class="timing-check-text" data-node-id="257:6670">Morning</span>
                 </div>
-                <div class="timing-check-item is-checked" data-toggle-check="true" data-check-size="12" data-check-icon="assets/check-sleep-12.svg" data-node-id="257:6671">
+                <div class="timing-check-item" id="checkBowelAfternoon" data-toggle-check="true" data-check-size="12" data-node-id="257:6671">
                   <div class="custom-checkbox size-12" data-node-id="257:6672"></div>
                   <span class="timing-check-text" data-node-id="257:6673">Afternoon</span>
                 </div>
-                <div class="timing-check-item is-checked" data-toggle-check="true" data-check-size="12" data-check-icon="assets/check-sleep-12.svg" data-node-id="257:6674">
+                <div class="timing-check-item" id="checkBowelEvening" data-toggle-check="true" data-check-size="12" data-node-id="257:6674">
                   <div class="custom-checkbox size-12" data-node-id="257:6675"></div>
                   <span class="timing-check-text" data-node-id="257:6676">Evening</span>
                 </div>
@@ -761,20 +776,22 @@
             </div>
           </div>
           <div class="accordion-chevron" data-node-id="257:6686">
-            <img src="assets/chevron-clothes.svg" alt="" />
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M3.33333 10L8 5.33333L12.6667 10" stroke="#386652" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
           </div>
         </button>
 
         <div class="accordion-body gap-14" data-node-id="257:6688">
-          <!-- Worn Fabrics -->
+          <!-- Worn Fabrics (No crossed-out state, unselected by default) -->
           <div class="subsection gap-6" data-node-id="257:6689">
             <span class="label-bold-11-track" data-node-id="257:6691">Worn Fabrics</span>
             <div class="chips-wrap" id="fabricsChipsWrap" data-node-id="257:6692">
-              <button type="button" class="chip-sm px-8 active" data-fabric-chip="true" data-label="100% Cotton" data-node-id="257:6693">✓ 100% Cotton</button>
-              <button type="button" class="chip-sm px-8 strikethrough" data-fabric-chip="true" data-label="Synthetic / Polyester" data-node-id="257:6701">Synthetic / Polyester</button>
-              <button type="button" class="chip-sm px-8" data-fabric-chip="true" data-label="Silk" data-node-id="257:6695">Silk</button>
-              <button type="button" class="chip-sm px-8" data-fabric-chip="true" data-label="Linen" data-node-id="257:6697">Linen</button>
-              <button type="button" class="chip-sm px-8 strikethrough" data-fabric-chip="true" data-label="Wool" data-node-id="257:6699">Wool</button>
+              <button type="button" class="chip-sm px-8" data-chip-toggle="prefix" data-label="100% Cotton" data-node-id="257:6693">+ 100% Cotton</button>
+              <button type="button" class="chip-sm px-8" data-chip-toggle="prefix" data-label="Synthetic / Polyester" data-node-id="257:6701">+ Synthetic / Polyester</button>
+              <button type="button" class="chip-sm px-8" data-chip-toggle="prefix" data-label="Silk" data-node-id="257:6695">+ Silk</button>
+              <button type="button" class="chip-sm px-8" data-chip-toggle="prefix" data-label="Linen" data-node-id="257:6697">+ Linen</button>
+              <button type="button" class="chip-sm px-8" data-chip-toggle="prefix" data-label="Wool" data-node-id="257:6699">+ Wool</button>
               <button type="button" class="chip-sm-add" data-open-add="addMaterialCard" data-focus-target="materialNameInput" data-node-id="263:7129">+ Add</button>
             </div>
 
@@ -782,10 +799,10 @@
             <div class="breathability-box" data-node-id="257:6703">
               <div class="slider-labels-row no-pb" data-node-id="257:6704">
                 <span class="slider-label-dark" data-node-id="257:6706">Garment Breathability</span>
-                <span class="slider-value-bold" id="breathabilityValue" data-node-id="257:6708">90%</span>
+                <span class="slider-value-bold" id="breathabilityValue" data-node-id="257:6708">0%</span>
               </div>
-              <div class="slider-track" data-slider="breathability" data-min="0" data-max="100" data-value="90" data-node-id="257:6709">
-                <div class="slider-thumb" style="left: 270px;" data-node-id="257:6712"></div>
+              <div class="slider-track" data-slider="breathability" data-min="0" data-max="100" data-value="0" data-node-id="257:6709">
+                <div class="slider-thumb" style="left: 0px;" data-node-id="257:6712"></div>
               </div>
             </div>
 
@@ -806,12 +823,12 @@
             </div>
           </div>
 
-          <!-- Physical and Mental Load (Chips with + Add feature) -->
+          <!-- Physical and Mental Load (Unselected by default) -->
           <div class="subsection gap-6 subsection-divider-9" data-node-id="257:6713">
             <span class="label-bold-11-track" data-node-id="257:6715">Physical and Mental Load</span>
             <div class="chips-wrap" id="loadChipsWrap" data-node-id="257:6716">
               <button type="button" class="chip-sm" data-chip-toggle="prefix" data-label="Catching Cold / Flu" data-node-id="257:6717">+ Catching Cold / Flu</button>
-              <button type="button" class="chip-sm active" data-chip-toggle="prefix" data-label="Work Stress" data-node-id="257:6721">✓ Work Stress</button>
+              <button type="button" class="chip-sm" data-chip-toggle="prefix" data-label="Work Stress" data-node-id="257:6721">+ Work Stress</button>
               <button type="button" class="chip-sm" data-chip-toggle="prefix" data-label="Menstrual phase" data-node-id="257:6727">+ Menstrual phase</button>
               <button type="button" class="chip-sm" data-chip-toggle="prefix" data-label="Fatigue / Anemia" data-node-id="257:6731">+ Fatigue / Anemia</button>
               <button type="button" class="chip-sm-add" data-open-add="addLoadCard" data-focus-target="loadNameInput">+ Add</button>
@@ -837,41 +854,40 @@
           <div class="subsection gap-10 subsection-divider-9" data-node-id="257:6735">
             <div class="row-between" data-node-id="257:6736">
               <span class="label-bold-12" data-node-id="257:6738">Environment and Weather</span>
-              <span class="hint-green-10" data-node-id="257:6740">Local sensor data</span>
             </div>
 
             <div class="subsection gap-10" style="padding-bottom: 4px;" data-node-id="257:6741">
               <div class="slider-labels-row no-pb" data-node-id="257:6742">
                 <span class="slider-label-muted" data-node-id="257:6744">Room Temp</span>
-                <span class="slider-value-bold-dark" id="roomTempValue" data-node-id="257:6746">24°C</span>
+                <span class="slider-value-bold-dark" id="roomTempValue" data-node-id="257:6746">10°C</span>
               </div>
-              <div class="slider-track" data-slider="roomTemp" data-min="10" data-max="40" data-value="24" data-node-id="257:6747">
-                <div class="slider-thumb" style="left: 147.45px;" data-node-id="257:6750"></div>
+              <div class="slider-track" data-slider="roomTemp" data-min="10" data-max="40" data-value="10" data-node-id="257:6747">
+                <div class="slider-thumb" style="left: 0px;" data-node-id="257:6750"></div>
               </div>
             </div>
 
             <div class="subsection gap-10" style="padding-bottom: 4px;" data-node-id="257:6751">
               <div class="slider-labels-row no-pb" data-node-id="257:6752">
                 <span class="slider-label-muted" data-node-id="257:6754">Humidity</span>
-                <span class="slider-value-bold-dark" id="humidityValue" data-node-id="257:6756">55% (Optimal)</span>
+                <span class="slider-value-bold-dark" id="humidityValue" data-node-id="257:6756">0% (Dry)</span>
               </div>
-              <div class="slider-track" data-slider="humidity" data-min="0" data-max="100" data-value="55" data-node-id="257:6757">
-                <div class="slider-thumb" style="left: 173.8px;" data-node-id="257:6760"></div>
+              <div class="slider-track" data-slider="humidity" data-min="0" data-max="100" data-value="0" data-node-id="257:6757">
+                <div class="slider-thumb" style="left: 0px;" data-node-id="257:6760"></div>
               </div>
             </div>
 
-            <!-- Harsh environment toggle -->
+            <!-- Harsh environment toggle (Unchecked by default; text box hidden when unticked) -->
             <div class="harsh-env-card" data-node-id="257:6761">
-              <div class="meal-check-label" data-toggle-check="true" data-check-icon="assets/check-clothes.svg" data-node-id="257:6762">
-                <div class="custom-checkbox checked" data-node-id="257:6763">
-                  <img src="assets/check-clothes.svg" alt="" data-node-id="257:6764" />
-                </div>
+              <div class="meal-check-label" id="checkHarshEnv" data-toggle-check="true" data-toggle-target-input="harshEnvNoteInput" data-node-id="257:6762">
+                <div class="custom-checkbox size-14" data-node-id="257:6763"></div>
                 <span class="checkbox-label-text" style="margin-left: 0; color: #20372e;" data-node-id="257:6767">Exposed to harsh environment / AC</span>
               </div>
               <input
                 type="text"
-                class="text-input-box compact"
-                value="High AC airflow in office, very dry indoor air"
+                id="harshEnvNoteInput"
+                class="text-input-box compact placeholder-style is-hidden"
+                value=""
+                placeholder="e.g., High AC airflow in office, very dry indoor air"
                 aria-label="Harsh environment notes"
                 data-node-id="257:6768"
               />
@@ -893,7 +909,9 @@
             </div>
           </div>
           <div class="accordion-chevron" data-node-id="257:6779">
-            <img src="assets/chevron-symptoms.svg" alt="" />
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M3.33333 10L8 5.33333L12.6667 10" stroke="#2D5343" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
           </div>
         </button>
 
@@ -905,17 +923,17 @@
                 <span class="symptom-dot" style="background-color: #f59e0b;" data-node-id="257:6785"></span>
                 <span class="symptom-name" data-node-id="257:6786">Weeping / Oozing</span>
               </div>
-              <span class="symptom-badge" id="symptomBadge1" data-node-id="257:6787">Mild • 20%</span>
+              <span class="symptom-badge minimal" id="symptomBadge1" data-node-id="257:6787">Minimal • 0%</span>
             </div>
             <div class="chips-wrap gap-4" id="weepingZonesWrap" data-node-id="257:6789">
-              <button type="button" class="chip-zone active" data-zone-chip="true" data-node-id="257:6790">Inner Elbows</button>
-              <button type="button" class="chip-zone" data-zone-chip="true" data-node-id="257:6792">Face</button>
-              <button type="button" class="chip-zone" data-zone-chip="true" data-node-id="257:6794">Neck</button>
-              <button type="button" class="chip-zone" data-zone-chip="true" data-node-id="257:6796">Hands</button>
+              <button type="button" class="chip-zone" data-zone-chip="true" data-label="Inner Elbows" data-node-id="257:6790">+ Inner Elbows</button>
+              <button type="button" class="chip-zone" data-zone-chip="true" data-label="Face" data-node-id="257:6792">+ Face</button>
+              <button type="button" class="chip-zone" data-zone-chip="true" data-label="Neck" data-node-id="257:6794">+ Neck</button>
+              <button type="button" class="chip-zone" data-zone-chip="true" data-label="Hands" data-node-id="257:6796">+ Hands</button>
               <button type="button" class="chip-zone-add" data-open-add="addAreaCard1" data-focus-target="areaNameInput1" data-node-id="257:6798">+ Add</button>
             </div>
-            <div class="slider-track" data-slider="symptom" data-badge-id="symptomBadge1" data-min="0" data-max="100" data-value="20" data-node-id="257:6800">
-              <div class="slider-thumb" style="left: 57.59px;" data-node-id="257:6803"></div>
+            <div class="slider-track" data-slider="symptom" data-badge-id="symptomBadge1" data-min="0" data-max="100" data-value="0" data-node-id="257:6800">
+              <div class="slider-thumb" style="left: 0px;" data-node-id="257:6803"></div>
             </div>
             <div class="fast-add-inline is-hidden" id="addAreaCard1" data-node-id="263:7064">
               <span class="fast-add-title" data-node-id="263:7066">Add Specific Area:</span>
@@ -934,23 +952,23 @@
           </div>
 
           <!-- Symptom Item 2: Itch & Pruritus -->
-          <div class="symptom-item-card highlighted" data-node-id="257:6804">
+          <div class="symptom-item-card" data-node-id="257:6804">
             <div class="symptom-title-row" data-node-id="257:6805">
               <div class="symptom-name-group" data-node-id="257:6806">
                 <span class="symptom-dot" style="background-color: #e77e68;" data-node-id="257:6807"></span>
                 <span class="symptom-name" data-node-id="257:6808">Itch &amp; Pruritus</span>
               </div>
-              <span class="symptom-badge moderate" id="symptomBadge2" data-node-id="257:6809">Moderate • 55%</span>
+              <span class="symptom-badge minimal" id="symptomBadge2" data-node-id="257:6809">Minimal • 0%</span>
             </div>
             <div class="chips-wrap gap-4" id="itchZonesWrap" data-node-id="257:6811">
-              <button type="button" class="chip-zone active" data-zone-chip="true" data-node-id="257:6812">Forearms</button>
-              <button type="button" class="chip-zone active" data-zone-chip="true" data-node-id="257:6814">Neck</button>
-              <button type="button" class="chip-zone" data-zone-chip="true" data-node-id="257:6816">Legs</button>
-              <button type="button" class="chip-zone" data-zone-chip="true" data-node-id="257:6818">Back</button>
+              <button type="button" class="chip-zone" data-zone-chip="true" data-label="Forearms" data-node-id="257:6812">+ Forearms</button>
+              <button type="button" class="chip-zone" data-zone-chip="true" data-label="Neck" data-node-id="257:6814">+ Neck</button>
+              <button type="button" class="chip-zone" data-zone-chip="true" data-label="Legs" data-node-id="257:6816">+ Legs</button>
+              <button type="button" class="chip-zone" data-zone-chip="true" data-label="Back" data-node-id="257:6818">+ Back</button>
               <button type="button" class="chip-zone-add" data-open-add="addAreaCard2" data-focus-target="areaNameInput2" data-node-id="257:6820">+ Add</button>
             </div>
-            <div class="slider-track" data-slider="symptom" data-badge-id="symptomBadge2" data-min="0" data-max="100" data-value="55" data-node-id="257:6822">
-              <div class="slider-thumb" style="left: 158.39px;" data-node-id="257:6825"></div>
+            <div class="slider-track" data-slider="symptom" data-badge-id="symptomBadge2" data-min="0" data-max="100" data-value="0" data-node-id="257:6822">
+              <div class="slider-thumb" style="left: 0px;" data-node-id="257:6825"></div>
             </div>
             <div class="fast-add-inline is-hidden" id="addAreaCard2">
               <span class="fast-add-title">Add Specific Area:</span>
@@ -974,16 +992,16 @@
                 <span class="symptom-dot" style="background-color: #059669;" data-node-id="257:6829"></span>
                 <span class="symptom-name" data-node-id="257:6830">Drying &amp; Flaking</span>
               </div>
-              <span class="symptom-badge" id="symptomBadge3" data-node-id="257:6831">Low • 35%</span>
+              <span class="symptom-badge minimal" id="symptomBadge3" data-node-id="257:6831">Minimal • 0%</span>
             </div>
             <div class="chips-wrap gap-4" id="dryingZonesWrap" data-node-id="257:6833">
-              <button type="button" class="chip-zone active" data-zone-chip="true" data-node-id="257:6834">Hands</button>
-              <button type="button" class="chip-zone active" data-zone-chip="true" data-node-id="257:6836">Cheeks</button>
-              <button type="button" class="chip-zone" data-zone-chip="true" data-node-id="257:6838">Legs</button>
+              <button type="button" class="chip-zone" data-zone-chip="true" data-label="Hands" data-node-id="257:6834">+ Hands</button>
+              <button type="button" class="chip-zone" data-zone-chip="true" data-label="Cheeks" data-node-id="257:6836">+ Cheeks</button>
+              <button type="button" class="chip-zone" data-zone-chip="true" data-label="Legs" data-node-id="257:6838">+ Legs</button>
               <button type="button" class="chip-zone-add" data-open-add="addAreaCard3" data-focus-target="areaNameInput3" data-node-id="257:6840">+ Add</button>
             </div>
-            <div class="slider-track" data-slider="symptom" data-badge-id="symptomBadge3" data-min="0" data-max="100" data-value="35" data-node-id="257:6842">
-              <div class="slider-thumb" style="left: 100.8px;" data-node-id="257:6845"></div>
+            <div class="slider-track" data-slider="symptom" data-badge-id="symptomBadge3" data-min="0" data-max="100" data-value="0" data-node-id="257:6842">
+              <div class="slider-thumb" style="left: 0px;" data-node-id="257:6845"></div>
             </div>
             <div class="fast-add-inline is-hidden" id="addAreaCard3">
               <span class="fast-add-title">Add Specific Area:</span>
@@ -1007,15 +1025,15 @@
                 <span class="symptom-dot" style="background-color: #9ca3af;" data-node-id="257:6849"></span>
                 <span class="symptom-name" data-node-id="257:6850">Stinging / Pain</span>
               </div>
-              <span class="symptom-badge minimal" id="symptomBadge4" data-node-id="257:6851">Minimal • 10%</span>
+              <span class="symptom-badge minimal" id="symptomBadge4" data-node-id="257:6851">Minimal • 0%</span>
             </div>
             <div class="chips-wrap gap-4" id="stingingZonesWrap" data-node-id="257:6853">
-              <button type="button" class="chip-zone" data-zone-chip="true" data-node-id="257:6854">Hands</button>
-              <button type="button" class="chip-zone" data-zone-chip="true" data-node-id="257:6856">Lips</button>
+              <button type="button" class="chip-zone" data-zone-chip="true" data-label="Hands" data-node-id="257:6854">+ Hands</button>
+              <button type="button" class="chip-zone" data-zone-chip="true" data-label="Lips" data-node-id="257:6856">+ Lips</button>
               <button type="button" class="chip-zone-add" data-open-add="addAreaCard4" data-focus-target="areaNameInput4" data-node-id="257:6858">+ Add</button>
             </div>
-            <div class="slider-track" data-slider="symptom" data-badge-id="symptomBadge4" data-min="0" data-max="100" data-value="10" data-node-id="257:6860">
-              <div class="slider-thumb" style="left: 28.8px;" data-node-id="257:6863"></div>
+            <div class="slider-track" data-slider="symptom" data-badge-id="symptomBadge4" data-min="0" data-max="100" data-value="0" data-node-id="257:6860">
+              <div class="slider-thumb" style="left: 0px;" data-node-id="257:6863"></div>
             </div>
             <div class="fast-add-inline is-hidden" id="addAreaCard4">
               <span class="fast-add-title">Add Specific Area:</span>
@@ -1032,9 +1050,14 @@
             </div>
           </div>
 
+          <!-- Container for dynamically added custom symptoms -->
+          <div id="customSymptomsList" class="subsection"></div>
+
           <!-- Button - Add Custom Symptom Action -->
           <button type="button" class="dashed-action-btn" id="btnOpenAddSymptom" data-open-add="addSymptomCard" data-focus-target="symptomNameInput" data-node-id="257:6864">
-            <img src="assets/plus-symptoms.svg" alt="" data-node-id="257:6865" />
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M8 2.66667V13.3333M13.3333 8H2.66667" stroke="#2D5343" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
             <span data-node-id="257:6867">Add Additional Symptom Track</span>
           </button>
 
@@ -1056,7 +1079,7 @@
         </div>
       </section>
 
-      <!-- SECTION 7: Others -->
+      <!-- SECTION 7: Others (Starts empty without House duty example; each added block has a delete icon on the right) -->
       <section class="section-card" data-node-id="263:7135" data-name="SectionOthers">
         <button type="button" class="accordion-header" data-node-id="263:7136">
           <div class="header-left" data-node-id="263:7137">
@@ -1069,32 +1092,21 @@
             </div>
           </div>
           <div class="accordion-chevron" data-node-id="263:7144">
-            <img src="assets/chevron-others.svg" alt="" />
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M3.33333 10L8 5.33333L12.6667 10" stroke="#386652" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
           </div>
         </button>
 
         <div class="accordion-body gap-14" id="othersContainer" data-node-id="263:7146">
-          <!-- House duty item -->
-          <div class="symptom-item-card" data-node-id="263:7292">
-            <div class="symptom-title-row" data-node-id="263:7293">
-              <div class="symptom-name-group" data-node-id="263:7294">
-                <button type="button" class="section-emoji-trigger" data-emoji-trigger="true" aria-label="Change section emoji">
-                  <img src="assets/mood-others.svg" alt="" data-node-id="263:7362" />
-                </button>
-                <span class="symptom-name" data-node-id="263:7296">House duty</span>
-              </div>
-            </div>
-            <input
-              type="text"
-              class="text-input-box placeholder-style"
-              placeholder="Tracking note"
-              data-node-id="263:7365"
-            />
-          </div>
+          <!-- Container for user-created custom sections -->
+          <div id="customOthersList" class="subsection"></div>
 
           <!-- Add Section Button -->
           <button type="button" class="dashed-action-btn" id="btnOpenAddOtherSection" data-open-add="addOtherSectionCard" data-focus-target="otherSectionNameInput" data-node-id="263:7242">
-            <img src="assets/plus-others.svg" alt="" data-node-id="263:7243" />
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M8 2.66667V13.3333M13.3333 8H2.66667" stroke="#2D5343" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
             <span data-node-id="263:7245">Add Section</span>
           </button>
 
@@ -1106,11 +1118,13 @@
                 type="text"
                 id="otherSectionNameInput"
                 class="text-input-box placeholder-style"
-                placeholder="Section name"
+                placeholder="Section name (e.g., House duty)"
                 data-node-id="263:7176"
               />
               <button type="button" class="mood-icon-btn" id="btnPickIcon" data-emoji-trigger="true" aria-label="Choose icon" data-node-id="263:7353">
-                <img src="assets/mood-others.svg" alt="" data-node-id="263:7359" />
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M10.3333 7.33333C10.6111 7.33333 10.8472 7.23611 11.0417 7.04167C11.2361 6.84722 11.3333 6.61111 11.3333 6.33333C11.3333 6.05556 11.2361 5.81944 11.0417 5.625C10.8472 5.43056 10.6111 5.33333 10.3333 5.33333C10.0556 5.33333 9.81944 5.43056 9.625 5.625C9.43056 5.81944 9.33333 6.05556 9.33333 6.33333C9.33333 6.61111 9.43056 6.84722 9.625 7.04167C9.81944 7.23611 10.0556 7.33333 10.3333 7.33333ZM5.66667 7.33333C5.94444 7.33333 6.18056 7.23611 6.375 7.04167C6.56944 6.84722 6.66667 6.61111 6.66667 6.33333C6.66667 6.05556 6.56944 5.81944 6.375 5.625C6.18056 5.43056 5.94444 5.33333 5.66667 5.33333C5.38889 5.33333 5.15278 5.43056 4.95833 5.625C4.76389 5.81944 4.66667 6.05556 4.66667 6.33333C4.66667 6.61111 4.76389 6.84722 4.95833 7.04167C5.15278 7.23611 5.38889 7.33333 5.66667 7.33333ZM8 11.6667C8.75556 11.6667 9.44167 11.4528 10.0583 11.025C10.675 10.5972 11.1222 10.0333 11.4 9.33333H4.6C4.87778 10.0333 5.325 10.5972 5.94167 11.025C6.55833 11.4528 7.24444 11.6667 8 11.6667ZM8 14.6667C7.07778 14.6667 6.21111 14.4917 5.4 14.1417C4.58889 13.7917 3.88333 13.3167 3.28333 12.7167C2.68333 12.1167 2.20833 11.4111 1.85833 10.6C1.50833 9.78889 1.33333 8.92222 1.33333 8C1.33333 7.07778 1.50833 6.21111 1.85833 5.4C2.20833 4.58889 2.68333 3.88333 3.28333 3.28333C3.88333 2.68333 4.58889 2.20833 5.4 1.85833C6.21111 1.50833 7.07778 1.33333 8 1.33333C8.92222 1.33333 9.78889 1.50833 10.6 1.85833C11.4111 2.20833 12.1167 2.68333 12.7167 3.28333C13.3167 3.88333 13.7917 4.58889 14.1417 5.4C14.4917 6.21111 14.6667 7.07778 14.6667 8C14.6667 8.92222 14.4917 9.78889 14.1417 10.6C13.7917 11.4111 13.3167 12.1167 12.7167 12.7167C12.1167 13.3167 11.4111 13.7917 10.6 14.1417C9.78889 14.4917 8.92222 14.6667 8 14.6667ZM8 13.3333C9.48889 13.3333 10.75 12.8167 11.7833 11.7833C12.8167 10.75 13.3333 9.48889 13.3333 8C13.3333 6.51111 12.8167 5.25 11.7833 4.21667C10.75 3.18333 9.48889 2.66667 8 2.66667C6.51111 2.66667 5.25 3.18333 4.21667 4.21667C3.18333 5.25 2.66667 6.51111 2.66667 8C2.66667 9.48889 3.18333 10.75 4.21667 11.7833C5.25 12.8167 6.51111 13.3333 8 13.3333Z" fill="#386652" />
+                </svg>
               </button>
             </div>
             <div class="fast-add-actions" data-node-id="263:7179">
@@ -1152,11 +1166,13 @@
             </div>
             <div class="header-titles">
               <h2 class="header-title">Photos &amp; Visual Log</h2>
-              <p class="header-subtitle" id="photosCountSubtitle">3 photos logged today</p>
+              <p class="header-subtitle" id="photosCountSubtitle">0 photos logged</p>
             </div>
           </div>
           <div class="accordion-chevron">
-            <img src="assets/chevron-others.svg" alt="" />
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M3.33333 10L8 5.33333L12.6667 10" stroke="#386652" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
           </div>
         </button>
 
@@ -1169,6 +1185,7 @@
             <button type="button" class="photo-filter-pill" data-photo-filter="Lunch">Lunch</button>
             <button type="button" class="photo-filter-pill" data-photo-filter="Dinner">Dinner</button>
             <button type="button" class="photo-filter-pill" data-photo-filter="Snacks">Snacks</button>
+            <button type="button" class="photo-filter-pill" data-photo-filter="Drinks">Drinks</button>
           </div>
 
           <!-- Photos Grid -->
@@ -1176,7 +1193,9 @@
 
           <!-- Add Photo Action Button -->
           <button type="button" class="dashed-action-btn" id="btnAddPhotoLog">
-            <img src="assets/plus-others.svg" alt="" />
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M8 2.66667V13.3333M13.3333 8H2.66667" stroke="#2D5343" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
             <span>Add / Upload Photo</span>
           </button>
         </div>
@@ -1212,7 +1231,10 @@
     <!-- Footer - StickyBottomBar -->
     <footer class="footer-sticky" data-node-id="257:6869" data-name="Footer - StickyBottomBar">
       <button type="button" class="selfie-primary-btn" id="btnTakeSelfie" data-node-id="257:6876">
-        <img src="assets/camera-selfie.svg" alt="" data-node-id="263:7369" />
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M2.5 7.5C2.5 6.57953 3.24619 5.83333 4.16667 5.83333H4.94167C5.4988 5.83342 6.01913 5.55512 6.32833 5.09167L7.005 4.075C7.31421 3.61155 7.83454 3.33325 8.39167 3.33333H11.6083C12.1655 3.33325 12.6858 3.61155 12.995 4.075L13.6717 5.09167C13.9809 5.55512 14.5012 5.83342 15.0583 5.83333H15.8333C16.7538 5.83333 17.5 6.57953 17.5 7.5V15C17.5 15.9205 16.7538 16.6667 15.8333 16.6667H4.16667C3.24619 16.6667 2.5 15.9205 2.5 15V7.5Z" stroke="white" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M12.5 10.8333C12.5 12.2131 11.3798 13.3333 10 13.3333C8.62021 13.3333 7.5 12.2131 7.5 10.8333C7.5 9.45355 8.62021 8.33333 10 8.33333C11.3798 8.33333 12.5 9.45355 12.5 10.8333Z" stroke="white" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
         <span data-node-id="257:6879">Take a selfie</span>
       </button>
     </footer>
@@ -1221,11 +1243,11 @@
   <!-- Toast feedback banner -->
   <div class="toast-banner" id="toastBanner" role="status" aria-live="polite"></div>
 
-  <!-- Photo / Selfie Upload Modal -->
+  <!-- Photo / Selfie Upload Modal (Clicking photo slot opens mobile Camera / Photo Gallery chooser) -->
   <div class="selfie-modal-backdrop" id="selfieModalBackdrop" aria-hidden="true">
     <div class="selfie-modal" role="dialog" aria-labelledby="selfieModalTitle">
       <div class="row-between">
-        <span class="label-bold-12" id="selfieModalTitle">Add Photo to Today's Log</span>
+        <span class="label-bold-12" id="selfieModalTitle">Add Photo to Journal</span>
         <button type="button" class="btn-cancel" id="btnCloseSelfieModal">Close</button>
       </div>
       <div class="modal-tag-group">
@@ -1236,20 +1258,22 @@
           <button type="button" class="modal-tag-chip" data-modal-tag="Lunch">Lunch</button>
           <button type="button" class="modal-tag-chip" data-modal-tag="Dinner">Dinner</button>
           <button type="button" class="modal-tag-chip" data-modal-tag="Snacks">Snacks</button>
+          <button type="button" class="modal-tag-chip" data-modal-tag="Drinks">Drinks</button>
         </div>
       </div>
-      <div class="selfie-preview-box" id="selfiePreviewBox">
-        <span>Tap "Choose Photo" to upload or capture an image</span>
-      </div>
+      <button type="button" class="selfie-preview-box" id="selfiePreviewBox" aria-label="Tap to take a photo or choose from gallery">
+        <span>Upload photo from camera or photo gallery</span>
+      </button>
       <input
         type="text"
         id="photoCaptionInput"
         class="text-input-box placeholder-style"
         placeholder="Caption / note (e.g. Oats bowl, Inner elbows)"
       />
-      <input type="file" id="selfieFileInput" accept="image/*" capture="user" style="display: none;" />
+      <!-- No forced capture="user" attribute so iOS/Android prompts user to choose Camera or Photo Library -->
+      <input type="file" id="selfieFileInput" accept="image/*" style="display: none;" />
       <div class="fast-add-actions">
-        <button type="button" class="btn-cancel" id="btnChoosePhoto">Choose Photo</button>
+        <button type="button" class="btn-cancel" id="btnChoosePhoto">Upload Photo</button>
         <button type="button" class="btn-save" id="btnSaveSelfie">Save Photo</button>
       </div>
     </div>
